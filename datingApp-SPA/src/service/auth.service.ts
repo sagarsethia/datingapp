@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(userModel: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'login', userModel,).pipe(
+    return this.http.post(this.baseUrl + 'login', userModel).pipe(
       map((response) => {
         const user = response;
         if (user) {
@@ -21,4 +21,11 @@ export class AuthService {
       }, error => { console.log(error); })
     );
   }
+
+  register(registerModel: any) {
+    return this.http.post(this.baseUrl + 'register', registerModel).subscribe((res) => {
+      console.log('user successfully register')
+    }, error => { console.log(error);
+  });
+}
 }
