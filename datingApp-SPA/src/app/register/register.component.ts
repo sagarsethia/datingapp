@@ -8,12 +8,12 @@ import { AuthService } from 'src/service/auth.service';
 })
 export class RegisterComponent implements OnInit {
   registerModel: any = {};
-  constructor(private _authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
   registerUser() {
-    this._authService.register(this.registerModel);
+    this.authService.register(this.registerModel);
   }
 
 }
