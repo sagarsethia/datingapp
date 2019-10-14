@@ -9,14 +9,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace dating.app.Controllers {
-    [Route ("[Controller]")]
+    [Route ("api/[Controller]")]
     [ApiController]
-    public class LoginController : ControllerBase {
+    public class AuthController : ControllerBase {
         private const string INVALID_USER_ERROR = "Invalid user name or password";
         private IAuthRepository _authService;
 
         private IConfiguration _config;
-        public LoginController (IAuthRepository authService, IConfiguration configuration) {
+        public AuthController (IAuthRepository authService, IConfiguration configuration) {
             _authService = authService;
             _config = configuration;
         }

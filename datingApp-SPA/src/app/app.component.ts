@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
+
 import { AuthService } from 'src/service/auth.service';
 
 @Component({
@@ -7,12 +9,13 @@ import { AuthService } from 'src/service/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  
 
   constructor(private authService: AuthService) {
 
   }
   ngOnInit(): void {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
   }
 
 }

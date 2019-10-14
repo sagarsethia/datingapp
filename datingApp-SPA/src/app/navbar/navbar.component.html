@@ -11,7 +11,7 @@
           <a class="nav-link" href="#" [routerLink]="['home']" routerLinkActive="active">Home </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" [routerLink]="['matches']" routerLinkActive="active">Matches</a>
+          <a class="nav-link" href="#" [routerLink]="['member']" routerLinkActive="active">Member</a>
         </li>
         <li class="nav-item">
           <a class="nav-link " href="#" [routerLink]="['links']" routerLinkActive="active">List</a>
@@ -39,8 +39,9 @@
           Welcome {{userName|titlecase}}
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <a class="dropdown-item">Edit Profile</a>
-          <a class="dropdown-item" (click)="logOut()">LogOut</a>
+          <a class="dropdown-item"><i class="fa fa-pencil-square-o" [routerLink]="['/member/edit/', userId]" aria-hidden="true">
+            Edit Profile</i></a>
+          <a class="dropdown-item" (click)="logOut()"> <i class="fa fa-sign-out" aria-hidden="true">LogOut</i></a>
         </div>
       </div>
     </div>

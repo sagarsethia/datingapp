@@ -1,0 +1,46 @@
+.img-thumbnail{
+    margin:25px;
+    width:35%;
+    height: 85%;
+    transform: scale(1,1);
+    transition-duration:500ms;
+    transition-timing-function: ease-out;
+}
+
+.img-thumbnail:hover{
+    transform: scale(1.2,1.2);
+    transition-duration:500ms;
+    transition-timing-function: ease-out;
+    opacity: 1.2;
+ }
+
+.col{
+    width: 50% !important;
+}
+
+.card-body{
+    padding: 0 25px;
+}
+
+.card-footer{
+    padding: 10px 15px;
+    background-color: #fff;
+    border-top: none;
+}
+
+.fa-heart{
+    color: red !important;
+    
+}
+.fa{
+    transform: scale(1,1);
+    transition-duration:500ms;
+    transition-timing-function: ease-out;
+ }
+
+ .fa:hover{
+    transform: scale(1.5,1.5);
+    transition-duration:500ms;
+    transition-timing-function: ease-out;
+    opacity: 1.2;
+ }

@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   model: any = {};
   isUserLoggedIn: boolean;
   userName: string;
+  userId: string;
   JwtHelperService: JwtHelperService = new JwtHelperService();
   constructor(public authService: AuthService, private alertifyService: AlertifyService,private router: Router) {
   }
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnInit {
       this.isUserLoggedIn = true;
       const token = localStorage.getItem('token');
       this.userName = this.JwtHelperService.decodeToken(token).unique_name;
+      this.userId = this.JwtHelperService.decodeToken(token).nameid;
       this.router.navigate(['home']);
     }, error => { this.alertifyService.error('Error in User Logged In'); });
   }

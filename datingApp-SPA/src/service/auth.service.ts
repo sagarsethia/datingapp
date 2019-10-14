@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = 'http://localhost:5000/login/';
+  baseUrl = ' https://localhost:5001/api/';
   constructor(private http: HttpClient, private alertifyJs: AlertifyService, private route: Router) { }
   JwtHelperService: JwtHelperService = new JwtHelperService();
   login(userModel: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'login', userModel).pipe(
+    return this.http.post(this.baseUrl + 'auth/login', userModel).pipe(
       map((response) => {
         const user = response;
         if (user) {
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   register(registerModel: any) {
-    return this.http.post(this.baseUrl + 'register', registerModel).subscribe((res) => {
+    return this.http.post(this.baseUrl + 'auth/register', registerModel).subscribe((res) => {
       this.alertifyJs.success('User Register Successfully');
       this.route.navigate(['home']);
     }, error => { this.alertifyJs.error('Error in user registration');
