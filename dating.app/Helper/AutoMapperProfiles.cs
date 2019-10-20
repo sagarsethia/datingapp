@@ -15,6 +15,7 @@ namespace dating.app.Helper {
                 src => src.DateOfBirth.CalulateAge ()
             ));
             CreateMap<Photo, photosDto> ();
+            CreateMap<UserToUpdateDto,User> ();
         }
     }
 }

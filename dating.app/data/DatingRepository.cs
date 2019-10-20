@@ -29,7 +29,8 @@ namespace dating.app.data {
         }
 
         public async Task<bool> SaveAll () {
-            return await _dbContext.SaveChangesAsync() < 0;
+            return await _dbContext.SaveChangesAsync() > 0;
         }
+
     }
 }

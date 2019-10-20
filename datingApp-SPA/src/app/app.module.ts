@@ -21,6 +21,7 @@ import { MemberDetailsComponent } from './member/member-details/member-details.c
 import { MemberServiceResolver } from 'src/service/member-service-resolver';
 import { MemberListServiceResolver } from 'src/service/member-list-service-resolver';
 import { MemberEditComponent } from './member/member-edit/member-edit.component';
+import { DetectChangeGuard } from './DetectChangeGuard';
 
 
 
@@ -31,8 +32,10 @@ const routes: Routes = [
    { path: 'links', component: ListComponent, canActivate: [AuthGuard] },
    { path: 'register', component: RegisterComponent},
    { path: 'messages', component: MessageComponent, canActivate: [AuthGuard] },
-   { path: 'member/:id', component: MemberDetailsComponent, resolve: {user: MemberServiceResolver}, canActivate: [AuthGuard] },
-   { path: 'member/edit/:id', component: MemberEditComponent, resolve: {user: MemberServiceResolver}, canActivate: [AuthGuard] },
+   { path: 'member/:id', component: MemberDetailsComponent, resolve: {user: MemberServiceResolver}, canActivate: [AuthGuard],
+   },
+   { path: 'member/edit/:id', component: MemberEditComponent, resolve: {user: MemberServiceResolver}, 
+     canActivate: [AuthGuard],canDeactivate:[DetectChangeGuard]  },
    { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 export function tokenGetter(){
@@ -72,8 +75,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
          }
       })
    ],
-   providers: [ErrorInterceptorProvider, MemberServiceResolver, MemberListServiceResolver,
-      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
+   providers: [ErrorInterceptorProvider, MemberServiceResolver, MemberListServiceResolver, AuthGuard,
+      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }, DetectChangeGuard
    ],
    bootstrap: [
       AppComponent

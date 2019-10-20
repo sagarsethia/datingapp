@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AlertifyService } from './alertify.service';
-import { map } from 'rxjs/Operators';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user.interface';
 
@@ -10,8 +9,8 @@ import { User } from 'src/app/model/user.interface';
   providedIn: 'root'
 })
 export class UserService {
-  baseUrl = ' https://localhost:5001/api/';
-  constructor(private http: HttpClient, private alertifyJs: AlertifyService) { }
+  baseUrl = 'https://localhost:5001/api/';
+  constructor(private http: HttpClient, private alertifyJs: AlertifyService) {}
 
   getAllUser(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + 'user');
@@ -19,5 +18,7 @@ export class UserService {
   getUser(id: number): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'user/' + id);
   }
-
+  saveUser(id: number, user: User): Observable<User> {
+    return this.http.put<User>(this.baseUrl + 'user/' + id, user);
+  }
 }

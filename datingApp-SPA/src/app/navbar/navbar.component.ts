@@ -29,7 +29,9 @@ export class NavbarComponent implements OnInit {
       this.userName = this.JwtHelperService.decodeToken(token).unique_name;
       this.userId = this.JwtHelperService.decodeToken(token).nameid;
       this.router.navigate(['home']);
-    }, error => { this.alertifyService.error('Error in User Logged In'); });
+    }, error => { 
+      this.alertifyService.error('Error in User Logged In'); 
+    });
   }
 
   userLoggedInUser() {

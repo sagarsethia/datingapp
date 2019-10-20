@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = ' https://localhost:5001/api/';
+  baseUrl = 'https://localhost:5001/api/';
   constructor(private http: HttpClient, private alertifyJs: AlertifyService, private route: Router) { }
   JwtHelperService: JwtHelperService = new JwtHelperService();
   login(userModel: any): Observable<any> {
@@ -22,7 +22,9 @@ export class AuthService {
           localStorage.setItem('token', user['tokenString']);
           this.alertifyJs.success('User Logged In Successfully');
         }
-      }, error => {  this.alertifyJs.success('Error in Logging In'); })
+      }, error => { 
+         this.alertifyJs.success('Error in Logging In');
+         })
     );
   }
 

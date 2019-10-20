@@ -1,7 +1,7 @@
 import { IPhoto } from './photo.interface';
 
 export interface IUser {
-    int: number;
+    id: number;
     userName: string;
     sex: string;
     interest?: string;
@@ -16,7 +16,7 @@ export interface IUser {
 }
 
 export class User implements IUser {
-    int: number;
+    id: number;
     userName: string;
     sex: string;
     interest?: string;

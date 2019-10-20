@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -6,6 +5,10 @@ using dating.app.data;
 using dating.app.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
+using System.Web;
+using System;
 
 namespace dating.app.Controllers {
     [Authorize]
@@ -20,14 +23,14 @@ namespace dating.app.Controllers {
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetUser () {
+        public async Task<IActionResult> GetUser () {
             var users = await _datingRepo.GetAllUser ();
             var userToReturn = _autoMapper.Map<IEnumerable<UserListDto>>(users);
             return Ok (userToReturn);
         }
 
         [HttpGet ("{id}")]
-        public async Task<ActionResult> GetUser (int id) {
+        public async Task<IActionResult> GetUser (int id) {
             var user = await _datingRepo.GetUser (id);
             var userToReturn = _autoMapper.Map<UserDetailsDto>(user);
             return Ok (userToReturn);
@@ -35,9 +38,26 @@ namespace dating.app.Controllers {
         }
 
         [HttpPost ("SaveAll")]
-        public async Task<ActionResult> SaveAll () {
+        public async Task<IActionResult> SaveAll () {
             var isSave = await _datingRepo.SaveAll ();
             return Ok (isSave);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserToUpdateDto user)
+        {
+            
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+           
+            var userToUpdate = await _datingRepo.GetUser(id);
+            _autoMapper.Map(user, userToUpdate);
+        
+            if (await _datingRepo.SaveAll())
+                return NoContent();
+
+            throw new Exception("failed to update user");
+
         }
 
         // public void DeleteUser(User user){
