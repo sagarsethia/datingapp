@@ -1,9 +1,9 @@
 namespace dating.app.Helper
 {
-    public class Cloudinary
+    public class CloudinarySettings
     {
         public string CloudName { get; set; }
-        public string Api_Key { get; set; }
-        public string Api_Secret { get; set; }
+        public string ApiKey { get; set; }
+        public string ApiSecret { get; set; }
     }
 }

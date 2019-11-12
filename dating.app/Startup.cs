@@ -42,7 +42,7 @@ namespace dating.app
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             
-            services.Configure<Cloudinary>(Configuration.GetSection("CloudinarySetting"));
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySetting"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +54,7 @@ namespace dating.app
 
             app.UseCors (x => x.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
 
-            app.UseHttpsRedirection ();
+            // app.UseHttpsRedirection ();
 
             app.UseRouting ();
 

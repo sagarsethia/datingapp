@@ -3,6 +3,7 @@ import { AuthService } from 'src/service/auth.service';
 import { AlertifyService } from 'src/service/alertify.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +15,9 @@ export class NavbarComponent implements OnInit {
   isUserLoggedIn: boolean;
   userName: string;
   userId: string;
+  userPhotoUrl: string;
   JwtHelperService: JwtHelperService = new JwtHelperService();
-  constructor(public authService: AuthService, private alertifyService: AlertifyService,private router: Router) {
+  constructor(public authService: AuthService, private alertifyService: AlertifyService, private router: Router) {
   }
 
   ngOnInit() {
@@ -29,12 +31,13 @@ export class NavbarComponent implements OnInit {
       this.userName = this.JwtHelperService.decodeToken(token).unique_name;
       this.userId = this.JwtHelperService.decodeToken(token).nameid;
       this.router.navigate(['home']);
-    }, error => { 
-      this.alertifyService.error('Error in User Logged In'); 
+    }, error => {
+      this.alertifyService.error('Error in User Logged In');
     });
   }
 
   userLoggedInUser() {
+    this.authService.userProfilePic.subscribe(p => (this.userPhotoUrl = p));
     this.isUserLoggedIn = this.authService.isUserLoggedIn();
   }
 

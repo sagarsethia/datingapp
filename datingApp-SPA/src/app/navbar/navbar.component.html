@@ -34,6 +34,7 @@
         <button class="btn btn-outline-success my-2 my-sm-0" (click)="login()" type="button">Login</button>
       </form>
       <div *ngIf="isUserLoggedIn" class="dropdown show">
+        <img class="imgpanel" src="{{userPhotoUrl}}">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Welcome {{userName|titlecase}}

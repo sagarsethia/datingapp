@@ -16,6 +16,8 @@ namespace dating.app.Helper {
             ));
             CreateMap<Photo, photosDto> ();
             CreateMap<UserToUpdateDto,User> ();
+            CreateMap<Photo,PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto,Photo>();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace dating.app.data {
         }
 
         public async Task<User> Login (string username, string password) {
-            var user = await _dbContext.User.FirstOrDefaultAsync (r=>r.UserName==username);
+            var user = await _dbContext.User.Include(r=>r.Photos).FirstOrDefaultAsync (r=>r.UserName==username);
             if (user == null)
                 return null;
             if (!VerifyHashPassword (password, user.PasswordSalt, user.PasswordHash))

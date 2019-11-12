@@ -1,7 +1,7 @@
 import { IUser } from './user.interface';
 
 export interface IPhoto {
-    Id: number;
+    id: number;
     url: string;
     description?: string;
     dateAdded?: Date;
@@ -11,7 +11,7 @@ export interface IPhoto {
 }
 
 export class Photos implements IPhoto {
-    Id: number; 
+    id: number; 
     url: string;
     description?: string;
     dateAdded?: Date;

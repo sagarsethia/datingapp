@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4" >
   <div class="row">
     <div class="col-sm-4">
         <h3>Your Profile</h3>
@@ -9,7 +9,7 @@
           </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" >
     <div class="col-sm-4">
       <div class="card">
         <img class="card-img-top img-thumbnail" src="{{user.url}}" alt="user?.userName">
@@ -66,8 +66,8 @@
 
             </form>
           </tab>
-          <tab heading="Edit Photo">
-
+          <tab heading="Edit Photo" >
+            <app-member-photo-edit (updateProfilePic)="updateMainPhoto($event)" [photo]="user.photos" [userId]="user.id"></app-member-photo-edit>
           </tab>
         </tabset>
       </div>

@@ -12,7 +12,7 @@ export class UserService {
   baseUrl = 'https://localhost:5001/api/';
   constructor(private http: HttpClient, private alertifyJs: AlertifyService) {}
 
-  getAllUser(): Observable<User[]> {
+   getAllUser(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl + 'user');
   }
   getUser(id: number): Observable<User> {

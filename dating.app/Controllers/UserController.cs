@@ -17,7 +17,9 @@ namespace dating.app.Controllers {
     public class UserController : ControllerBase {
         private IDatingRepository _datingRepo;
         private IMapper _autoMapper;
-        public UserController (IDatingRepository datingRepository, IMapper autoMapper) {
+        public UserController (
+            IDatingRepository datingRepository,
+            IMapper autoMapper) {
             _datingRepo = datingRepository;
             _autoMapper = autoMapper;
         }
@@ -59,11 +61,7 @@ namespace dating.app.Controllers {
             throw new Exception("failed to update user");
 
         }
-
-        // public void DeleteUser(User user){
-        //     _datingRepo.DeleteUser(user);
-        // }
-
+    
         // public void AddUser(User user){
         //     _datingRepo.AddUsers(user);
         // }

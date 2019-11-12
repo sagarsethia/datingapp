@@ -8,13 +8,17 @@ namespace dating.app.data
     {
         void AddUsers<T>(T entity) where T:class;
 
-        void DeleteUser<T>(T entity) where T:class;
+        Task<bool> Delete<T>(T entity) where T:class;
         
         Task<bool> SaveAll();
 
         Task<IEnumerable<User>> GetAllUser();
 
         Task<User> GetUser(int userId);
+        Task<Photo>GetPhotos(int id);
+
+        Task<Photo>GetUserMainPhoto(int id);
+       
 
     }
 }

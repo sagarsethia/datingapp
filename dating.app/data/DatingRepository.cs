@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dating.app.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace dating.app.data {
@@ -13,8 +14,10 @@ namespace dating.app.data {
            _dbContext.Add(entity);
         }
 
-       public void DeleteUser<T> (T entity) where T:class {
-            _dbContext.Remove(entity);
+        public async Task<bool> Delete<T> (T entity) where T:class {
+             _dbContext.Remove(entity);
+            var isSave= await SaveAll();
+            return isSave;
         }
 
        public async Task<IEnumerable<User>> GetAllUser () {
@@ -22,10 +25,21 @@ namespace dating.app.data {
             return user;
         }
 
+        public async Task<Photo> GetPhotos(int id)
+        {
+           var photo= await _dbContext.Photos.FirstOrDefaultAsync(r=>r.Id==id);
+           return photo;
+        }
+
         public async Task<User> GetUser(int userId)
         {
             var user= await _dbContext.User.Include(r=>r.Photos).FirstOrDefaultAsync(r=>r.Id==userId);
             return user; 
+        }
+
+        public async Task<Photo> GetUserMainPhoto(int id)
+        {
+             return await _dbContext.Photos.Where(r=>r.IsMain==true && r.UserId==id).FirstOrDefaultAsync();
         }
 
         public async Task<bool> SaveAll () {
