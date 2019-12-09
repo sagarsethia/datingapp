@@ -9,5 +9,9 @@ namespace dating.app.data {
         public DbSet<User> User { get; set; }
 
         public DbSet<Photo> Photos {get;set;}
+
+        public DbSet<Countries> Countries {get;set;}
+
+        public DbSet<Cities> Cities {get;set;}
     }
 }

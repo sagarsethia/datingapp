@@ -20,6 +20,7 @@ namespace dating.app {
                     var context = service.GetRequiredService<DataContext> ();
                     context.Database.Migrate ();
                     SeedUser.Seed (context);
+                   // SeedWorldData.Seed(context);
                 } catch (Exception ex)  {
                     throw ex;
                 }

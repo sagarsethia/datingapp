@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   userId: string;
   userPhotoUrl: string;
   JwtHelperService: JwtHelperService = new JwtHelperService();
-  constructor(public authService: AuthService, private alertifyService: AlertifyService, private router: Router) {
+  constructor(private authService: AuthService, private alertifyService: AlertifyService, private router: Router) {
   }
 
   ngOnInit() {

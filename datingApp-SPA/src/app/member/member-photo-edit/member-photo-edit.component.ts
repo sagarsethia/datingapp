@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { AuthService } from 'src/service/auth.service';
 import { Photos } from 'src/app/model/photo.interface';
@@ -13,7 +13,6 @@ import { AlertifyService } from 'src/service/alertify.service';
 export class MemberPhotoEditComponent implements OnInit {
   @Input() photo;
   @Input() userId;
-  @Output() updateProfilePic = new EventEmitter();
   public uploader: FileUploader;
 
   constructor(
@@ -24,6 +23,7 @@ export class MemberPhotoEditComponent implements OnInit {
 
   ngOnInit() {
     this.initiliazeFileUploader();
+    this.authService.userProfilePic.subscribe(p => (this.photo.url = p));
   }
 
   initiliazeFileUploader() {
@@ -75,7 +75,6 @@ export class MemberPhotoEditComponent implements OnInit {
   setMainPhoto(photoId: number) {
     this.photoService.setUserMainPhoto(this.userId, photoId).subscribe(
       res => {
-        this.updateProfilePic.emit(res);
         this.photo.map(r => (r.isMain = false));
         this.photo.filter(r => r.id === res.id)[0].isMain = true;
         this.authService.changeProfilePic(res.url);

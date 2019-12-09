@@ -9,22 +9,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace dating.app.Controllers {
-    [Route ("api/[Controller]")]
+namespace dating.app.Controllers
+{
+    [Route("api/[Controller]")]
     [ApiController]
-    public class AuthController : ControllerBase {
+    public class AuthController : ControllerBase
+    {
         private const string INVALID_USER_ERROR = "Invalid user name or password";
         private IAuthRepository _authService;
         private IMapper _mapper;
         private IConfiguration _config;
-        public AuthController (IAuthRepository authService, IConfiguration configuration, IMapper mapper) {
+        public AuthController(IAuthRepository authService, IConfiguration configuration, IMapper mapper)
+        {
             _authService = authService;
             _config = configuration;
             _mapper = mapper;
         }
 
-        [HttpPost ("login")]
-        public async Task<IActionResult> Login (LoginUserDto loginDto) {
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginUserDto loginDto)
+        {
             try
             {
                 var user = await _authService.Login(loginDto.Username, loginDto.Password);
@@ -64,16 +68,29 @@ namespace dating.app.Controllers {
 
         }
 
-        [HttpPost ("register")]
-        public async Task<IActionResult> RegisterUser (RegisterUserDto loginDto) {
-            var isUserExist = await _authService.isUserExist (loginDto.UserName);
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser(RegisterUserDto loginDto)
+        {
+            try {
+            var isUserExist = await _authService.isUserExist(loginDto.UserName);
             if (isUserExist)
-                return BadRequest ("User Already Exist");
-            var userToCreate = new User () {
-                UserName = loginDto.UserName
+                return BadRequest("User Already Exist");
+            var userToCreate = new User()
+            {
+                UserName = loginDto.UserName,
+                country = loginDto.country,
+                City = loginDto.City,
+                DateOfBirth = loginDto.DateOfBirth,
+                Sex= loginDto.Sex,
+                Created=DateTime.Now
             };
-            var registerUser = await _authService.Register (userToCreate, loginDto.Password);
-            return Ok (registerUser);
+            var registerUser = await _authService.Register(userToCreate, loginDto.Password);
+            return Ok(registerUser);
+            }
+            catch(Exception ex){
+                return BadRequest(ex.ToString());
+            }
+
         }
     }
 }

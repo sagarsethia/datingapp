@@ -1,21 +1,110 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-4">
-            <form #ngRegister="ngForm">
+            <form [formGroup]="registerForm">
                 <h2 class="text-center text-primary">Sign Up</h2>
                 <div class="form-group">
-                    <input name="Username" [(ngModel)]="registerModel.userName" type="text" class="form-control"
-                        placeholder="Username">
-                </div>
+                    <strong class="mr-2 mb-2" for="male">I am a:</strong>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" formControlName="Sex" name="Sex" type="radio" id="male" value="Male">
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" formControlName="Sex" name="Sex" type="radio" id="female" value="Female">
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                    <div *ngIf="(registerForm.get('Sex').dirty || registerForm.get('Sex').pristine) && registerForm.get('Sex').errors?.required">
+                        <small id="passwordHelp" class="text-danger">
+                            Gender is Required
+                        </small>
+                    </div>
 
+                </div>
                 <div class="form-group">
-                    <input type="password" name="Password" [(ngModel)]="registerModel.password" class="form-control"
-                        placeholder="Password">
+                    <input name="Username" formControlName="Username" type="text" class="form-control"
+                        placeholder="Username">
+                    <div *ngIf="registerForm.get('Username').hasError('required') && registerForm.get('Username').dirty">
+                        <small id="passwordHelp" class="text-danger">
+                            User Name is Required
+                        </small>
+                    </div>
                 </div>
-
+                <div class="form-group">
+                    <input type="text" name="name" formControlName="name" class="form-control" placeholder="Known as">
+                    <div *ngIf="registerForm.get('name').dirty && registerForm.get('name').errors?.required">
+                        <small id="passwordHelp" class="text-danger">
+                            Known as is Required
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="dd-mm-yyyy"
+                        name="DateOfBirth" formControlName="DateOfBirth" dateFormat='dd-mm-yyyy'  ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+                        </div>
+                      </div>
+                   
+                    <div *ngIf="registerForm.get('DateOfBirth').dirty && registerForm.get('DateOfBirth').errors?.required">
+                        <small id="passwordHelp" class="text-danger">
+                            DOB is Required
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <select class="form-control" name="Country"  formControlName="Country" (change)="setCountry($event)">
+                            <option [value]="0">Please Select Country</option>
+                            <option *ngFor="let item of country" [value]="item.value">{{item.name}}</option>
+                        </select>
+                        <div *ngIf="registerForm.get('Country').dirty && registerForm.get('Country').errors?.required">
+                            <small id="passwordHelp" class="text-danger">
+                                Country is Required
+                            </small>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" name="City" aria-placeholder="Please Select City" formControlName="City" (change)="setCity($event)">
+                        <option [value]="0">Please Select City</option>
+                        <option *ngFor="let item of city" [value]="item.value">{{item.name}}</option>
+                    </select>
+                    <div *ngIf="registerForm.get('City').dirty && registerForm.get('City').errors?.required">
+                        <small id="passwordHelp" class="text-danger">
+                            City is Required
+                        </small>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <input type="Password" name="Password" formControlName="Password" class="form-control"
+                        placeholder="Password">
+                    <div *ngIf="registerForm.get('Password')?.dirty && registerForm.get('Password').errors?.required">
+                        <small id="passwordHelp" class="text-danger">
+                            Password is Required
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="Password" name="confirmPassword" formControlName="confirmPassword" class="form-control"
+                        placeholder="Confirm Password">
+                    <div *ngIf="registerForm.get('confirmPassword').dirty">
+                        <div *ngIf="registerForm.get('confirmPassword').errors?.required">
+                            <small id="passwordHelp" class="text-danger">
+                                Confirm Password is Required
+                            </small>
+                        </div>
+                        <div *ngIf="registerForm.errors?.matchPassword">
+                                <small id="passwordHelp" class="text-danger">
+                                    Password Should match
+                                </small>
+                            </div>
+                    </div>
+                </div>
                 <div class="form-group text-center">
-                    <button class="btn btn-success" type="submit" (click)="registerUser()">Register</button>
-                    <button class="btn btn-default" type="button">Cancel</button>
+                    
+                    <button class="btn btn-success" type="submit" 
+                        (click)="registerUser()" [disabled]="!registerForm.valid">Register</button>
+                    <button class="btn btn-default" type="button" (click)="Clear()">Clear</button>
                 </div>
             </form>
         </div>

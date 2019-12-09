@@ -1,10 +1,11 @@
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -24,6 +25,8 @@ import { MemberEditComponent } from './member/member-edit/member-edit.component'
 import { DetectChangeGuard } from './DetectChangeGuard';
 import { MemberPhotoEditComponent } from './member/member-photo-edit/member-photo-edit.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { ValidatorDirective } from './validator.directive';
+import { DateformaterPipe } from '../service/dateformater.pipe';
 
 
 
@@ -37,7 +40,7 @@ const routes: Routes = [
    { path: 'member/:id', component: MemberDetailsComponent, resolve: {user: MemberServiceResolver}, canActivate: [AuthGuard],
    },
    { path: 'member/edit/:id', component: MemberEditComponent, resolve: {user: MemberServiceResolver}, 
-     canActivate: [AuthGuard],canDeactivate:[DetectChangeGuard]  },
+     canActivate: [AuthGuard], canDeactivate:[DetectChangeGuard]  },
    { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 export function tokenGetter(){
@@ -50,40 +53,48 @@ export class CustomHammerConfig extends HammerGestureConfig  {
    };
 }
 @NgModule({
-   declarations: [
-      AppComponent,
-      NavbarComponent,
-      HomeComponent,
-      RegisterComponent,
-      MemberListComponent,
-      ListComponent,
-      MessageComponent,
-      MemberCardComponent,
-      MemberDetailsComponent,
-      MemberEditComponent,
-      MemberPhotoEditComponent
-   ],
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      FormsModule,
-      NgxGalleryModule,
-      FileUploadModule,
-      TabsModule.forRoot(),
-      RouterModule.forRoot(routes),
-      JwtModule.forRoot({config:
-         {
-            tokenGetter,
-            whitelistedDomains:['localhost:5001'],
-            blacklistedRoutes:['localhost:5000/auth']
-         }
-      })
-   ],
-   providers: [ErrorInterceptorProvider, MemberServiceResolver, MemberListServiceResolver, AuthGuard,
-      { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }, DetectChangeGuard
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    HomeComponent,
+    DateformaterPipe,
+    RegisterComponent,
+    MemberListComponent,
+    ListComponent,
+    MessageComponent,
+    MemberCardComponent,
+    MemberDetailsComponent,
+    MemberEditComponent,
+    MemberPhotoEditComponent,
+    ValidatorDirective,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    NgxGalleryModule,
+    FileUploadModule,
+    ReactiveFormsModule,
+    TabsModule.forRoot(),
+    RouterModule.forRoot(routes),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        whitelistedDomains: ['localhost:5001'],
+        blacklistedRoutes: ['localhost:5000/auth']
+      }
+    }),
+    NgbDatepickerModule
+  ],
+  providers: [
+    ErrorInterceptorProvider,
+    MemberServiceResolver,
+    MemberListServiceResolver,
+    AuthGuard,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig },
+    DetectChangeGuard
+  ],
+  bootstrap: [AppComponent],
+  exports: [DateformaterPipe]
 })
-export class AppModule { }
+export class AppModule {}

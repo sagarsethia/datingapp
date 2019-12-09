@@ -33,8 +33,8 @@ export class AuthService {
         response => {
           const user = response;
           if (user) {
-            // tslint:disable-next-line: no-string-literal
             this.decodedToken = this.JwtHelperService.decodeToken(
+              // tslint:disable-next-line: no-string-literal
               user['tokenString']
             );
             // tslint:disable-next-line: no-string-literal
