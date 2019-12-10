@@ -11,6 +11,7 @@ using AutoMapper;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
 using dating.app.Helper;
+using dating.app.Filters;
 
 namespace dating.app
 {
@@ -43,6 +44,7 @@ namespace dating.app
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySetting"));
+            services.AddScoped<AppActionFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

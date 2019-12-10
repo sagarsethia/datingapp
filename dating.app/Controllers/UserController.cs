@@ -5,12 +5,12 @@ using dating.app.data;
 using dating.app.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Security.Claims;
-using System.Web;
 using System;
+using dating.app.Filters;
 
 namespace dating.app.Controllers {
+    [ServiceFilter(typeof(AppActionFilter))]
     [Authorize]
     [Route ("api/[controller]")]
     [ApiController]
@@ -61,10 +61,6 @@ namespace dating.app.Controllers {
             throw new Exception("failed to update user");
 
         }
-    
-        // public void AddUser(User user){
-        //     _datingRepo.AddUsers(user);
-        // }
 
     }
 }

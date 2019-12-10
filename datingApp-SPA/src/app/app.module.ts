@@ -6,6 +6,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {TimeAgoPipe} from 'time-ago-pipe';
+
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -67,6 +69,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     MemberEditComponent,
     MemberPhotoEditComponent,
     ValidatorDirective,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
         blacklistedRoutes: ['localhost:5000/auth']
       }
     }),
-    NgbDatepickerModule
+    NgbDatepickerModule,
+
   ],
   providers: [
     ErrorInterceptorProvider,
