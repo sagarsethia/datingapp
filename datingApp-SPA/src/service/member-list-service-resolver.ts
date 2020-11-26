@@ -11,7 +11,9 @@ export class MemberListServiceResolver implements Resolve<User[]> {
     constructor(private router: Router, private userservice: UserService, private alertify: AlertifyService) {
     }
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-       return this.userservice.getAllUser().pipe(
+       const pageNumber = 1;
+       const pageSize = 15;
+       return this.userservice.getAllUser(pageNumber, pageSize).pipe(
             catchError(resp => {
                this.alertify.error('Error Retrieving data');
                this.router.navigate(['/home']);

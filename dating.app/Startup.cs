@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using AutoMapper;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +21,16 @@ namespace dating.app
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // public void ConfigureDevelopmentServices(IServiceCollection services){
+        //     services.AddDbContext<DataContext> (x => {x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection"));});
+        //     ConfigureServices(services);
+        // }
+
+        // public void ConfigureProductionServices(IServiceCollection services){
+           
+        //     ConfigureServices(services);
+        // }
+
         public void ConfigureServices (IServiceCollection services) {
             services.AddDbContext<DataContext> (x => x.UseSqlite (Configuration.GetConnectionString ("DefaultConnection")));
             services.AddControllers ();
@@ -52,14 +60,14 @@ namespace dating.app
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
             }
+            app.UseDeveloperExceptionPage ();
             app.UseAuthentication();
 
             app.UseCors (x => x.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
-
+               
             // app.UseHttpsRedirection ();
-
             app.UseRouting ();
-
+           
             app.UseAuthorization ();
             
             app.UseEndpoints (endpoints => {

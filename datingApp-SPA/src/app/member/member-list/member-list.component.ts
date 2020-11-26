@@ -10,11 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MemberListComponent implements OnInit {
   users: User[];
+  currentPage =2;
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(resp=>{
-      this.users = resp['users'];
+      this.users = resp['users'].result;
     })
   }
 

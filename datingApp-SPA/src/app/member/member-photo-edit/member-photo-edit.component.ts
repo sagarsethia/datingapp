@@ -52,6 +52,9 @@ export class MemberPhotoEditComponent implements OnInit {
           dateAdded: res.dateAdded
         };
         this.photo.push(photo);
+        if(photo.isMain){
+          this.authService.changeProfilePic(res.url);
+        }
       }
     };
   }

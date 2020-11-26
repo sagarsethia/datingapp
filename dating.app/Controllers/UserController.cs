@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System;
 using dating.app.Filters;
+using dating.app.Helper;
 
 namespace dating.app.Controllers {
     [ServiceFilter(typeof(AppActionFilter))]
@@ -25,8 +26,9 @@ namespace dating.app.Controllers {
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUser () {
-            var users = await _datingRepo.GetAllUser ();
+        public async Task<IActionResult> GetUser ([FromQuery]UserParams userParams) {
+            var users = await _datingRepo.GetAllUser (userParams);
+            Response.AddPagination(users.CurrentPage,users.PageSize,users.TotalCount,users.TotalPages);
             var userToReturn = _autoMapper.Map<IEnumerable<UserListDto>>(users);
             return Ok (userToReturn);
         }

@@ -14,7 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from 'src/service/error.interceptor';
-import { MemberListComponent } from './member/message-list/member-list.component';
+import { MemberListComponent } from './member/member-list/member-list.component';
 import { ListComponent } from './list/list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MessageComponent } from './message/message.component';
@@ -29,6 +29,7 @@ import { MemberPhotoEditComponent } from './member/member-photo-edit/member-phot
 import { FileUploadModule } from 'ng2-file-upload';
 import { ValidatorDirective } from './validator.directive';
 import { DateformaterPipe } from '../service/dateformater.pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 
@@ -72,6 +73,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     TimeAgoPipe
   ],
   imports: [
+    PaginationModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     FormsModule,

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dating.app.Helper;
 
 namespace dating.app.data
 {
@@ -12,7 +13,7 @@ namespace dating.app.data
         
         Task<bool> SaveAll();
 
-        Task<IEnumerable<User>> GetAllUser();
+        Task<PagedList<User>> GetAllUser(UserParams userParams);
 
         Task<User> GetUser(int userId);
         Task<Photo>GetPhotos(int id);
